@@ -210,7 +210,7 @@ If you use this dataset or code, please cite:
 
 ## License
 
-[Specify license - e.g., MIT, Apache 2.0, or proprietary]
+MIT 2025
 
 ---
 
