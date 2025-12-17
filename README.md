@@ -64,6 +64,7 @@ uv run experiments/plot_mc_results.py
 mlca/
 ├── README.md                                          # This file
 ├── requirements.txt                                   # Python dependencies
+├── pyproject.toml                                     # Project configuration for uv
 ├── data/                                              # Datasets
 │   ├── amp_sweep_bandpower_bins2_40.npz              # Preprocessed (19 KB)
 │   └── 20251211_221504_amplitude_sweep_dataset.h5    # Raw HDF5 (3.8 MB)
@@ -74,7 +75,7 @@ mlca/
 ├── figures/                                           # Publication figures
 │   └── 20251211_221504_amplitude_sweep.png           # IQ response matrix
 ├── results/                                           # Experiment outputs
-│   └── monte_carlo_results.csv                       # Precomputed MC statistics
+│   └── monte_carlo_results.csv                       # MC statistics from 50 trials
 ├── src/                                               # Source code
 │   ├── __init__.py
 │   └── data_loader.py                                # HDF5 dataset loader
@@ -137,6 +138,11 @@ iq_responses = dataset.get_iq_responses()      # Shape: [125, 5, 1000, 1, 2]
 
 Preprocessed version of the HDF5 dataset with bandpower features extracted from IQ traces. Used directly by `experiments/closed_loop_backtest.py`.
 
+**NPZ format:**
+- `drive_qubit_idx`: int array [N_configs] - which qubit was driven
+- `amplitude`: float array [N_configs] - pulse amplitude values
+- `score_raw`: float array [N_configs, N_qubits] - response scores for each qubit
+
 ---
 
 ## Hardware Platform
@@ -175,6 +181,13 @@ To replicate the dataset collection on Qolab hardware, see `data_collection/coll
 - tqdm (progress bars)
 
 **Install:**
+
+Using `uv` (recommended - handles dependencies automatically):
+```bash
+uv sync
+```
+
+Or using `pip`:
 ```bash
 pip install -r requirements.txt
 ```
